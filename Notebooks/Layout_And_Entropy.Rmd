@@ -50,17 +50,75 @@ plot(Graph, edge.arrow.size=.5, vertex.color="gold", vertex.size=15,
      vertex.label.cex=0.8, vertex.label.dist=2, edge.curved=0.2)
 
 ```
+```{r Fructerman Reingold}
+minC <- rep(-Inf, vcount(Graph))
+maxC <- rep(Inf, vcount(Graph))
+minC[1] <- maxC[1] <- 0
+co <- layout_with_fr(Graph,
+                     minx=minC,
+                     maxx=maxC,
+                     miny=minC,
+                     maxy=maxC,
+                     niter=1500,
+                     dim=2)
+#co[1,]
+plot(Graph, layout=co, vertex.size=30, edge.arrow.size=0.2,
+      rescale=FALSE,
+     xlim=range(co[,1]), ylim=range(co[,2]), vertex.label.dist=0,
+     vertex.label.color="red")
+axis(1)
+axis(2)
+```
+```{r Kamada-Kawai}
+minC <- rep(-Inf, vcount(Graph))
+maxC <- rep(Inf, vcount(Graph))
+minC[1] <- maxC[1] <- 0
+co <- layout_with_kk(Graph,
+                     minx=minC,
+                     maxx=maxC,
+                     miny=minC,
+                     maxy=maxC,
+                     dim=2)
+#co[1,]
+plot(Graph, layout=co, vertex.size=30, edge.arrow.size=0.2,
+      rescale=FALSE,
+     xlim=range(co[,1]), ylim=range(co[,2]), vertex.label.dist=0,
+     vertex.label.color="red")
+axis(1)
+axis(2)
+```
+```{r Nice Layout}
+co <- layout_nicely(Graph)
+plot(Graph, layout=co, vertex.size=30, edge.arrow.size=0.2,
+      rescale=FALSE,
+     xlim=range(co[,1]), ylim=range(co[,2]), vertex.label.dist=0,
+     vertex.label.color="red")
+axis(1)
+axis(2)
+```
+```{r Circle Layout}
+co <- layout_in_circle(Graph)
+plot(Graph, layout=co, vertex.size=30, edge.arrow.size=0.2,
+      rescale=FALSE,
+     xlim=range(co[,1]), ylim=range(co[,2]), vertex.label.dist=0,
+     vertex.label.color="red")
+axis(1)
+axis(2)
+```
 
 ```{r Entropy of Graph}
 A <- as.matrix(get.adjacency(Graph))
 entropy <- graph.entropy(A)
 print(entropy)
 ```
+
 ```{r page rank score}
-sort(page.rank(graph=Graph)$vector)
+sort(round(page.rank(graph=Graph)$vector,4),decreasing=TRUE)
 ```
-```{r}
-hub_score(Graph)
-authority_score(Graph)
+
+```{r hubs and authorities}
+options(scipen=999)
+sort(round(hub_score(Graph)$vector,4),decreasing=TRUE)
+sort(round(authority_score(Graph)$vector,4),decreasing=TRUE)
 ```
 
