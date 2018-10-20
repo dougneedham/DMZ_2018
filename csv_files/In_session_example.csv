@@ -1,0 +1,16 @@
+Source,Target,Edge_Label
+Provider,Account,Services
+Customer,Claim,Submits
+Account,Customer,owned by
+Payer,Provider,Compensates
+Claim,Payer,Compensates
+Student,Instructor,hasclass
+Product,Claim,against
+Instructor,Payer,Compensates
+Account,Product,Compensates
+Customer,Provider,fulfills
+Customer,Product,Compensates
+Payer,Customer,istypeof
+Student,Customer,istypeof
+Payer,Account,owned by
+Student,Payer,istypeof
